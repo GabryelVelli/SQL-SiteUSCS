@@ -1,0 +1,270 @@
+create database GabryelVelli
+
+use GabryelVelli
+
+
+CREATE TABLE Universidade (
+    id_universidade INT identity(1,1) ,
+    nome_universidade VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id_universidade)
+);
+INSERT INTO Universidade (nome_universidade) 
+VALUES ('USCS');
+select * from Universidade
+
+
+
+
+
+CREATE TABLE campi(
+id_campi int identity(1,1) PRIMARY KEY,
+campus_universidade VARCHAR(255) NOT NULL,
+rua_universidade VARCHAR(255) NOT NULL,
+número_univeridade VARCHAR(255) NOT NULL,
+bairro_universidade VARCHAR(255) NOT NULL,
+cidade_universidade VARCHAR(255) NOT NULL,
+cep_universidade VARCHAR(255) NOT NULL,
+id_universidade int,
+FOREIGN KEY (id_universidade) REFERENCES universidade(id_universidade)
+);
+
+INSERT INTO campi
+Values('Campus Barcelona','Av Goias','3400','Centro','São Caetano do Sul','09550-051',1);
+INSERT INTO campi
+Values ('Campus Centro','Rua Santo Antônio','50','Centro', 'São Caetano do Sul','09521-160',1);
+INSERT INTO campi
+Values ('Campus Conceição','Rua Conceição','321','Santo Antônio', 'São Caetano do Sul', '09530-060',1);
+INSERT INTO campi
+Values ('Campus Manoel Coelho','Rua Manoel Coelho','600','Centro', 'São Caetano do Sul', '09510-101',1);
+INSERT INTO campi
+Values ('Campus São Paulo','Rua Treze de maio','681','Bela Vista', 'São Paulo', '01327-000',1);
+INSERT INTO campi
+Values ('Campus Itapetininga','Av.Dr.Ciro Albuquerque','4.750','Taboãozinho', 'Itapetininga', '18200-021',1);
+INSERT INTO campi
+Values ('Colegio Universitário USCS','Rua Conceição','321','Santo Antônio', 'São Caetano do Sul', '09530-060',1);
+select * from campi
+
+
+
+Create Table Escola(
+id_escola int identity (1,1),
+nome_escola VARCHAR(255) not null,
+PRIMARY KEY (id_escola)
+);
+
+Insert INTO Escola(nome_escola)
+Values ('Escola da Industria Criativa'),('Escola de Direito'),
+('Escola De Gestão de Negocios'),('Escola Politécnica'),
+('Escola De Saúde'),('Escola De Formação de Professores')
+
+Select * from Escola
+
+
+
+
+Create Table Modalidade(
+id_modalidade int identity(1,1),
+nome_modalidade VARCHAR (255) NOT NULL,
+PRIMARY KEY (id_modalidade)
+);
+
+insert into modalidade(nome_modalidade)
+Values('Ensino Medio'),('Graduação Presencial'),('Graduação a Distancia'),('Pós-Especialização'),('Pós-Mestrado e Doutorado');
+
+Select * from modalidade
+
+
+
+
+
+
+
+Create Table Formacao(
+id_formato int identity(1,1),
+formato VARCHAR(255) not null,
+PRIMARY KEY (id_formato)
+);
+INSERT INTO formacao(formato)
+VALUES ('Bacharelado'),('Tecnologo'),('Engenharia');
+Select * From formacao
+
+
+
+
+
+
+Create table Periodo(
+id_periodo int identity(1,1),
+nome_periodo VARCHAR(255) not null,
+PRIMARY KEY (id_periodo)
+);
+Insert into periodo(nome_periodo)
+VALUES('Matutino'),('Noturno'),('Matutino e Noturno')
+select * from periodo
+
+
+
+
+Create Table Semestre(
+id_semestre int identity(1,1),
+semestre VARCHAR(255) not null,
+PRIMARY KEY(id_semestre)
+);
+INSERT INTO semestre(semestre)
+VALUES('4'),('5'),('8'),('10');
+Select * From semestre
+
+
+Create table Curso(
+id_Curso int identity(1,1) PRIMARY KEY(id_curso),
+nome_curso VARCHAR(255),
+id_Escola int,
+id_formato int,
+id_semestre int,
+id_periodo int,
+id_campi int,
+id_modalidade int,
+FOREIGN KEY (id_escola) REFERENCES Escola(id_escola),
+FOREIGN KEY (id_formato) REFERENCES formacao(id_formato),
+FOREIGN KEY (id_semestre) REFERENCES semestre(id_semestre),
+FOREIGN KEY (id_periodo) REFERENCES periodo(id_periodo),
+FOREIGN KEY (id_campi) REFERENCES campi(id_campi),
+FOREIGN KEY (id_modalidade) REFERENCES modalidade(id_modalidade),
+);
+
+INSERT INTO Curso
+Values('Análise e Desenv.De Sistemas-SC',4,2,2,3,3,2),
+	  ('Análise e Desenv.De Sistemas-SP',4,2,2,3,5,2),
+	  ('Ciência da Computação',4,1,3,3,3,2),
+	  ('Banco De Dados',4,2,2,2,3,2),
+	  ('Engenharia Civil',4,1,4,3,3,2),
+	  ('Engenharia da computação',4,1,4,3,3,2),
+	  ('Engenharia de controle e automação',4,1,4,3,3,2),
+	  ('Engenharia Eletrica',4,1,4,3,3,2),
+	  ('Engenharia de Produção',4,1,4,3,3,2),
+	  ('Egenharia Quimica',4,1,4,3,3,2),
+	  ('Gestao de qualidade',4,2,1,2,3,2),
+	  ('Gestao de TI',4,2,2,3,3,2),
+	  ('Segurança da Informação',4,2,2,3,3,2);
+	  select * from curso
+
+
+
+
+create table CargaHoraria(
+	  id_CargaHoraria int identity(1,1) PRIMARY KEY,
+	  Carga_Horaria int
+	  )
+	  INSERT INTO CargaHoraria (Carga_Horaria)
+	  VALUES(40),(80)
+
+	  select *from CargaHoraria
+
+
+
+Create table CorpoDocente(
+	  id_corpodocente int identity (1,1) Primary Key,
+	  Professor VARCHAR(255),
+	  Curriculo VARCHAR(255),
+	  )
+INSERT into CorpoDocente
+VALUES ('Andréa Zotovici', 'http://lattes.cnpq.br/6748009005812163'),
+    ('Alessandra Preto Bitante', 'http://lattes.cnpq.br/1948650911840769'),
+    ('Alexandre de Souza', 'http://lattes.cnpq.br/8057928897819717'),
+    ('Aparecido Valdemir de Freitas', 'http://lattes.cnpq.br/7066902372313632'),
+    ('Carlos Alberto de Macedo', 'http://lattes.cnpq.br/8109287106881238'),
+    ('Carlos Eduardo Bognar', 'http://lattes.cnpq.br/1652563369580223'),
+    ('Cilene Aparecida Mainente', 'http://lattes.cnpq.br/0904890628330453'),
+    ('Cláudio Alexandre Ganança', 'http://lattes.cnpq.br/9544063373240451'),
+    ('Cláudio Cura Junior', 'http://lattes.cnpq.br/4036093821193528'),
+    ('Daniela Ferreira Flores Longato', 'http://lattes.cnpq.br/1624542879179162'),
+    ('Fernando Semenzato', 'http://lattes.cnpq.br/3240030432665154'),
+    ('Floriano Ferreira dos Reis Filho', 'http://lattes.cnpq.br/8476928068426608'),
+    ('Ícaro de Paula Freitas', 'http://lattes.cnpq.br/2947244901988005'),
+    ('Jacinto Carlos Ascêncio Cansado', 'http://lattes.cnpq.br/7738003166416550'),
+    ('José Antônio Paganotti', 'http://lattes.cnpq.br/0680951292898878'),
+    ('José Antônio Iglesias Pascual', 'http://lattes.cnpq.br/9500956934740476'),
+    ('Lucas Trombeta', 'http://lattes.cnpq.br/4261102167881380'),
+    ('Magda Aparecida Silverio Miyashiro', 'http://lattes.cnpq.br/8557867072756445'),
+    ('Marcelo de Melo', NULL), 
+    ('Marcio Katsumi Oikawa', 'http://lattes.cnpq.br/4438914190540949'),
+    ('Marcelo Mecchi Morales', NULL), 
+    ('Marcos Alberto Bussab', 'http://lattes.cnpq.br/1915864369353296'),
+    ('Mário Eugênio Longato', 'http://lattes.cnpq.br/1787388449161483'),
+    ('Neiva Alessandra Coelho Marostica', 'http://lattes.cnpq.br/1317009249702007'),
+    ('Renato Carioca Duarte', 'http://lattes.cnpq.br/5229389289857238'),
+    ('Ricardo Resende de Mendonça', 'http://lattes.cnpq.br/6179126701104562'),
+    ('Robson do Nascimento', 'http://lattes.cnpq.br/8116284845266807'),
+    ('Samáris Ramiro Pereira', 'http://lattes.cnpq.br/1414652257642258'),
+    ('Sheila Simões Bonfim', 'http://lattes.cnpq.br/1387982666103307'),
+    ('Cláudio Dall''Anese', 'http://lattes.cnpq.br/6099414992018190'),
+    ('Regiane Balestra Vieira', NULL);
+	select *from CorpoDocente
+
+
+
+
+Create table disciplina(
+id_disciplina int identity(1,1) PRIMARY KEY,
+Materia VARCHAR(255),
+Grupo int,
+id_CargaHoraria int,
+id_CorpoDocente int,
+id_curso int,
+FOREIGN KEY (id_cargahoraria) REFERENCES Cargahoraria(id_cargahoraria),
+FOREIGN KEY (id_CorpoDocente) REFERENCES CorpoDocente (id_corpodocente),
+FOREIGN KEY (id_curso) REFERENCES Curso (id_curso)
+)
+INSERT INTO Disciplina
+VALUES  ('LÓGICA APLICADA À COMPUTAÇÃO', 1, 1, 22, 1),
+    ('ARQUITETURA DE COMPUTADORES', 1, 2, 9, 1),
+    ('MATEMÁTICA PARA A VIDA COTIDIANA - EAD', 1, 2, 30, 1),
+    ('PRÁTICA PROFISSIONAL I', 1, 1, 10, 1),
+    ('REDES DE COMPUTADORES', 1, 2, 23, 1),
+    ('ALGORITMOS E LINGUAGEM DE PROGRAMAÇÃO', 1, 2, 25, 1),
+    ('Projeto de Extensão I - ADS', 1, 1, 10, 1),
+    ('SISTEMAS OPERACIONAIS', 2, 2, 11, 1),
+    ('PROGRAMAÇÃO ORIENTADA A OBJETOS', 2, 2, 25, 1),
+    ('ORGANIZAÇÕES, ESTRUTURAS E PROJETOS DE BANCOS DE DADOS', 2, 2, 9, 1),
+    ('PROGRAMAÇÃO AVANÇADA E ESTRUTURA DE DADOS', 2, 1, 14, 1),
+    ('Projeto de Extensão II - ADS', 2, 1, 7, 1),
+    ('CONCEPÇÃO E ESTRUTURA DAS ORGANIZAÇÕES E EMPREENDEDORISMO - EAD', 2, 2, 31, 1),
+    ('PRÁTICA PROFISSIONAL II', 2, 1, 7, 1),
+    ('ENGENHARIA DE SOFTWARE', 3, 2, NULL, 1),
+    ('DESENVOLVIMENTO PARA WEB', 3, 2, NULL, 1),
+    ('ANÁLISE E MODELAGEM DE BANCO DE DADOS', 3, 1, NULL, 1),
+    ('ARQUITETURAS AVANÇADAS DE SOFTWARE', 3, 2, NULL, 1),
+    ('Projeto de Extensão III - ADS', 3, 1, NULL, 1),
+    ('COMUNICAÇÃO EMPRESARIAL - EAD', 3, 2, NULL, 1),
+    ('PRÁTICA PROFISSIONAL III', 3, 1, NULL, 1),
+    ('PROGRAMAÇÃO DE DISPOSITIVOS MÓVEIS', 4, 2, NULL, 1),
+    ('MÉTODOS ÁGEIS DE DESENVOLVIMENTO', 4, 2, NULL, 1),
+    ('Serviços de Virtualização Computacional', 4, 1, NULL, 1),
+    ('PADRÕES DE USABILIDADE E DESENVOLVIMENTO DE INTERFACES', 4, 2, NULL, 1),
+    ('Projeto de Extensão IV - ADS', 4, 1, NULL, 1),
+    ('SISTEMAS DE INFORMAÇÕES GERENCIAIS - EAD', 4, 2, NULL, 1),
+    ('PRÁTICA PROFISSIONAL IV', 4, 1, NULL, 1),
+    ('QUALIDADE DE SOFTWARE', 5, 2, NULL, 1),
+    ('SEGURANÇA E AUDITORIA DE SISTEMAS', 5, 2, NULL, 1),
+    ('TECNOLOGIAS PARA INTELIGÊNCIA NOS NEGÓCIOS', 5, 1, NULL, 1),
+    ('AUTOMAÇÃO DE TESTES E DEVOPS', 5, 2, NULL, 1),
+    ('Projeto de Extensão V - ADS', 5, 1, NULL, 1),
+    ('GESTÃO DE PROJETOS - EAD', 5, 2, NULL, 1),
+    ('PRÁTICA PROFISSIONAL V', 5, 1, NULL, 1);
+
+select * from disciplina
+
+
+
+Create table mensalidade(
+id_mensalidade int identity (1,1) PRIMARY KEY,
+mensal float,
+id_periodo int,
+id_curso int,
+FOREIGN KEY (id_periodo) REFERENCES periodo(id_periodo),
+FOREIGN KEY (id_curso) REFERENCES curso(id_curso),
+)
+insert into mensalidade
+values(373.00,1,1),
+	  (415.00,2,1)
+select * from mensalidade
